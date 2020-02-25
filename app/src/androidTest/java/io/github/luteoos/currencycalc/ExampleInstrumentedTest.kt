@@ -1,4 +1,4 @@
-package io.github.luteoos.template
+package io.github.luteoos.currencycalc
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("io.github.luteoos.template", appContext.packageName)
+        assertEquals("io.github.luteoos.currencycalc", appContext.packageName)
     }
 }

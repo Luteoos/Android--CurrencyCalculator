@@ -1,4 +1,4 @@
-package io.github.luteoos.template
+package io.github.luteoos.currencycalc
 
 import org.junit.Test
 

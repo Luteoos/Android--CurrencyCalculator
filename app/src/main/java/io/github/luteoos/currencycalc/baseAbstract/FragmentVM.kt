@@ -1,4 +1,4 @@
-package io.github.luteoos.template.baseAbstract
+package io.github.luteoos.currencycalc.baseAbstract
 
 import androidx.lifecycle.Observer
 import io.github.luteoos.mvvmbaselib.BaseFragmentMVVMWithoutVM

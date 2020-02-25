@@ -1,10 +1,10 @@
-package io.github.luteoos.template.utils
+package io.github.luteoos.currencycalc.utils
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import io.github.luteoos.template.view.activity.SplashScreenActivity
+import io.github.luteoos.currencycalc.view.activity.SplashScreenActivity
 
 class Session(context: Context) {
     private val USER_UUID = "USER_UUID"

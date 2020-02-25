@@ -1,10 +1,8 @@
-package io.github.luteoos.template.view.activity
+package io.github.luteoos.currencycalc.view.activity
 
-import android.content.Intent
 import android.os.Bundle
-import io.github.luteoos.template.R
-import io.github.luteoos.template.baseAbstract.ActivityNoVM
-import kotlinx.android.synthetic.main.activity_splash_screen.*
+import io.github.luteoos.currencycalc.R
+import io.github.luteoos.currencycalc.baseAbstract.ActivityNoVM
 
 class SplashScreenActivity : ActivityNoVM() {
 

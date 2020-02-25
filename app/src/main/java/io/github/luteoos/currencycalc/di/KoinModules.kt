@@ -1,6 +1,6 @@
-package io.github.luteoos.template.di
+package io.github.luteoos.currencycalc.di
 
-import io.github.luteoos.template.utils.Session
+import io.github.luteoos.currencycalc.utils.Session
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

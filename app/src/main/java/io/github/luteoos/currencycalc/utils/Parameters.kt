@@ -1,4 +1,4 @@
-package io.github.luteoos.template.utils
+package io.github.luteoos.currencycalc.utils
 
 object Parameters {
     const val EMPTY_USERNAME = "<EMPTY>"

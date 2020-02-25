@@ -1,4 +1,4 @@
-package io.github.luteoos.template.utils
+package io.github.luteoos.currencycalc.utils
 
 import android.content.Context
 import android.view.GestureDetector

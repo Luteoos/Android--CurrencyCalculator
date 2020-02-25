@@ -8,10 +8,9 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "io.github.luteoos.template"
+        applicationId "io.github.luteoos.currencycalc"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 1
         versionName "$app_version"
         multiDexEnabled true
 
@@ -30,12 +29,14 @@ android {
     productFlavors {
         production {
             dimension "server"
-            resValue "string", "app_name", "Template"
+            resValue "string", "app_name", "Currency Calculator"
+            versionCode 1
         }
         staging {
             dimension "server"
             applicationIdSuffix ".dev"
-            resValue "string", "app_name", "Template - staging"
+            resValue "string", "app_name", "Currency Calculator - staging"
+            versionCode 1
         }
     }
     compileOptions {

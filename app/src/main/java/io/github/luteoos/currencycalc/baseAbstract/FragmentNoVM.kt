@@ -1,4 +1,4 @@
-package io.github.luteoos.template.baseAbstract
+package io.github.luteoos.currencycalc.baseAbstract
 
 import android.os.Bundle
 import android.view.LayoutInflater
