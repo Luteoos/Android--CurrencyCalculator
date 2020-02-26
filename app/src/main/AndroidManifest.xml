@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="io.github.luteoos.currencycalc">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name="io.github.luteoos.currencycalc.Application"
+        tools:replace="android:allowBackup"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,7 +17,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name="io.github.luteoos.currencycalc.view.activity.SplashScreenActivity"
+            android:name="io.github.luteoos.currencycalc.view.activity.MainScreenActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

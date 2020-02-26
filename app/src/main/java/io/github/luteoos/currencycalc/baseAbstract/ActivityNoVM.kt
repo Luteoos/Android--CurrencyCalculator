@@ -5,12 +5,8 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import io.github.luteoos.currencycalc.utils.Session
-import org.koin.android.ext.android.inject
 
 abstract class ActivityNoVM : AppCompatActivity(){
-
-    val session: Session by inject()
 
     /**
      * override and set layoutId here
