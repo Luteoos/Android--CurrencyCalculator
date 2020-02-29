@@ -1,5 +1,6 @@
 package io.github.luteoos.currencycalc.di
 
+import io.github.luteoos.currencycalc.`interface`.CurrencyRatesRepositoryInterface
 import io.github.luteoos.currencycalc.network.GsonProvider
 import io.github.luteoos.currencycalc.network.OkHttpClientProvider
 import io.github.luteoos.currencycalc.network.RestService
@@ -11,11 +12,14 @@ import org.koin.dsl.module
 /**
  * Add your DI here
  */
-val appModule = module {
+val singleModule = module {
     single { GsonProvider() }
     single { OkHttpClientProvider() }
     single { RestService(get(), get()) }
-    single { CurrencyRatesRepository(get()) }
+}
+
+val factoryModule = module {
+    factory<CurrencyRatesRepositoryInterface> { CurrencyRatesRepository(get())  }
 }
 
 /**
@@ -25,4 +29,4 @@ val vmModule = module {
     viewModel { MainScreenViewModel(get()) }
 }
 
-val koinModules = listOf(appModule, vmModule)
+val koinModules = listOf(singleModule, factoryModule, vmModule)

@@ -2,12 +2,12 @@ package io.github.luteoos.currencycalc.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import io.github.luteoos.currencycalc.`interface`.CurrencyRatesRepositoryInterface
 import io.github.luteoos.currencycalc.baseAbstract.BaseViewModel
-import io.github.luteoos.currencycalc.repository.CurrencyRatesRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 
-class MainScreenViewModel(private val currencyRepository: CurrencyRatesRepository) : BaseViewModel() {
+class MainScreenViewModel(private val currencyRepository: CurrencyRatesRepositoryInterface) : BaseViewModel() {
 
     private val currency = MutableLiveData<String>()
     private lateinit var disposable : Disposable

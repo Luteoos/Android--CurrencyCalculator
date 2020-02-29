@@ -1,5 +1,6 @@
 package io.github.luteoos.currencycalc.repository
 
+import io.github.luteoos.currencycalc.`interface`.CurrencyRatesRepositoryInterface
 import io.github.luteoos.currencycalc.data.android.CurrencyRatesDataObject
 import io.github.luteoos.currencycalc.data.android.CurrencyRatesDataWrapper
 import io.github.luteoos.currencycalc.network.RestService
@@ -7,10 +8,10 @@ import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class CurrencyRatesRepository(private val currencyService: RestService) {
+class CurrencyRatesRepository(private val currencyService: RestService) : CurrencyRatesRepositoryInterface{
 
 
-    fun getCurrencyRates() : Flowable<CurrencyRatesDataWrapper> {
+    override fun getCurrencyRates() : Flowable<CurrencyRatesDataWrapper> {
        return currencyService.getCurrencyRatesService().getLatestCurrencyRates("EUR")
            .delay(1, TimeUnit.SECONDS)
            .repeat()
