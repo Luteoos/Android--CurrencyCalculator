@@ -14,11 +14,14 @@ class MainScreenViewModel(private val currencyRepository: CurrencyRatesRepositor
     fun getLiveData() : LiveData<String> = currency
 
     fun getData(){
-        currencyRepository.getCurrencyRates()//todo multiply currency and rate, to new object that is fitting view needs, containing isSuccess
+        disposable = currencyRepository.getCurrencyRates()//todo multiply currency and rate, to new object that is fitting view needs, containing isSuccess
                 //if not success, view show snackbar and detach disposable -> Retry reaatahes flow
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                currency.value = it.dataObject?.currency ?: "pusto :("
+                if(it.isSuccess)
+                    currency.value = it.dataObject?.rates?.entries?.first().toString() ?: "pusto :("
+                else
+                    currency.value = "ERROR"
             },{
                 it.message
             })

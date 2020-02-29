@@ -6,6 +6,7 @@ import io.github.luteoos.currencycalc.data.android.CurrencyRatesDataWrapper
 import io.github.luteoos.currencycalc.network.RestService
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class CurrencyRatesRepository(private val currencyService: RestService) : CurrencyRatesRepositoryInterface{
@@ -13,8 +14,11 @@ class CurrencyRatesRepository(private val currencyService: RestService) : Curren
 
     override fun getCurrencyRates() : Flowable<CurrencyRatesDataWrapper> {
        return currencyService.getCurrencyRatesService().getLatestCurrencyRates("EUR")
-           .delay(1, TimeUnit.SECONDS)
-           .repeat()
+           .repeatWhen { Flowable.interval(1, TimeUnit.SECONDS)
+               .onBackpressureDrop { Timber.e("TEST// INTERVAL DROP") }
+               .doOnNext { Timber.e("TEST// INTERVAL $it") }
+           }
+           .doOnNext { Timber.e("TEST// REST") }
            .map {response ->
                when(response.code()){
                    200 -> CurrencyRatesDataWrapper(CurrencyRatesDataObject(response.body()!!), true)

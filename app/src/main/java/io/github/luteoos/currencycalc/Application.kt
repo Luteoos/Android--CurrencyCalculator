@@ -2,7 +2,6 @@ package io.github.luteoos.currencycalc
 
 import android.app.Application
 import android.os.StrictMode
-import com.luteoos.kotlin.mvvmbaselib.BuildConfig
 import io.github.luteoos.currencycalc.di.koinModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

@@ -37,6 +37,7 @@ android {
         staging {
             dimension "server"
             applicationIdSuffix ".dev"
+            resValue "string", "app_name", "Currency Calculator - staging"
             resValue "string", "FLAGS_URL", "https://www.countryflags.io/%1s/flat/64.png"
             buildConfigField("String", "BASE_URL", "\"https://hiring.revolut.codes/api/android/\"")
             versionCode 1

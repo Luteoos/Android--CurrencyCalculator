@@ -3,7 +3,7 @@ package io.github.luteoos.currencycalc.data.rest
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class RatesDataModelRest(
+data class CurrencyRatesDataModelRest(
     @Expose
     @SerializedName("baseCurrency")
     val baseCurrency: String,
