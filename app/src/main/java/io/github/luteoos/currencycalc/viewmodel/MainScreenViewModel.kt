@@ -4,30 +4,57 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.github.luteoos.currencycalc.`interface`.CurrencyRatesRepositoryInterface
 import io.github.luteoos.currencycalc.baseAbstract.BaseViewModel
+import io.github.luteoos.currencycalc.data.android.CurrencyRatesViewData
+import io.github.luteoos.currencycalc.utils.Parameters
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MainScreenViewModel(private val currencyRepository: CurrencyRatesRepositoryInterface) : BaseViewModel() {
 
-    private val currency = MutableLiveData<String>()
-    private lateinit var disposable : Disposable
-    fun getLiveData() : LiveData<String> = currency
+    private val currencyList = MutableLiveData<CurrencyRatesViewData>()
+    private var currentCurrency = Parameters.defaultCurrency
+    private var currentCurrencyAmount : Double = 0.0
+    private var disposable : Disposable? = null
 
-    fun getData(){
-        disposable = currencyRepository.getCurrencyRates()//todo multiply currency and rate, to new object that is fitting view needs, containing isSuccess
-                //if not success, view show snackbar and detach disposable -> Retry reaatahes flow
+    fun getCurrencyLiveData() : LiveData<CurrencyRatesViewData> = currencyList
+
+    private fun getData(){
+        disposable = currencyRepository.getCurrencyRates(currentCurrency)
+            .map {
+                CurrencyRatesViewData.getCalculatedRates(it, currentCurrencyAmount)
+            }
+            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                if(it.isSuccess)
-                    currency.value = it.dataObject?.rates?.entries?.first().toString() ?: "pusto :("
-                else
-                    currency.value = "ERROR"
+                currencyList.value = it
+                if(!it.isSuccess)
+                    pause()
             },{
-                it.message
+                currencyList.value = CurrencyRatesViewData()
+                pause()
             })
     }
 
+    fun updateCurrencyAmount(amount: Double){
+        currentCurrencyAmount = amount
+    }
+
+    fun updateMainCurrency(currency: String){
+        currentCurrency = currency
+        updateRepositoryFlow()
+    }
+
+    fun resume(){
+        getData()
+    }
+
     fun pause(){
-        disposable.dispose()
+        disposable?.dispose()
+    }
+
+    private fun updateRepositoryFlow(){
+        pause()
+        getData()
     }
 }

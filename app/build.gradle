@@ -30,7 +30,7 @@ android {
         production {
             dimension "server"
             resValue "string", "app_name", "Currency Calculator"
-            resValue "string", "FLAGS_URL", "https://www.countryflags.io/%1s/flat/64.png"
+            resValue "string", "FLAGS_URL", "https://raw.githubusercontent.com/transferwise/currency-flags/master/src/flags/%1s.png"
             buildConfigField("String", "BASE_URL", "\"https://hiring.revolut.codes/api/android/\"")
             versionCode 1
         }
@@ -38,7 +38,7 @@ android {
             dimension "server"
             applicationIdSuffix ".dev"
             resValue "string", "app_name", "Currency Calculator - staging"
-            resValue "string", "FLAGS_URL", "https://www.countryflags.io/%1s/flat/64.png"
+            resValue "string", "FLAGS_URL", "https://raw.githubusercontent.com/transferwise/currency-flags/master/src/flags/%1s.png"
             buildConfigField("String", "BASE_URL", "\"https://hiring.revolut.codes/api/android/\"")
             versionCode 1
         }
@@ -92,6 +92,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     testImplementation "org.koin:koin-test:$koin_version"
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'com.jraska.livedata:testing-ktx:1.1.1'
 
 
 }

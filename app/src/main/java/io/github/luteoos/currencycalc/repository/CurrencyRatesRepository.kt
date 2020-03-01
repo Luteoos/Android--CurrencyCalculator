@@ -12,12 +12,9 @@ import java.util.concurrent.TimeUnit
 class CurrencyRatesRepository(private val currencyService: RestService) : CurrencyRatesRepositoryInterface{
 
 
-    override fun getCurrencyRates() : Flowable<CurrencyRatesDataWrapper> {
-       return currencyService.getCurrencyRatesService().getLatestCurrencyRates("EUR")
-           .repeatWhen { Flowable.interval(1, TimeUnit.SECONDS)
-               .onBackpressureDrop { Timber.e("TEST// INTERVAL DROP") }
-               .doOnNext { Timber.e("TEST// INTERVAL $it") }
-           }
+    override fun getCurrencyRates(currency: String) : Flowable<CurrencyRatesDataWrapper> {
+       return currencyService.getCurrencyRatesService().getLatestCurrencyRates(currency)
+           .repeatWhen { getIntervalFlowable() }
            .doOnNext { Timber.e("TEST// REST") }
            .map {response ->
                when(response.code()){
@@ -30,4 +27,9 @@ class CurrencyRatesRepository(private val currencyService: RestService) : Curren
            }
             .subscribeOn(Schedulers.io())
     }
+
+    private fun getIntervalFlowable() =
+        Flowable.interval(1, TimeUnit.SECONDS)
+            .onBackpressureDrop { Timber.e("TEST// INTERVAL DROP") }
+            .doOnNext { Timber.e("TEST// INTERVAL $it") }
 }

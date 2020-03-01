@@ -1,4 +1,5 @@
 <resources>
     <string name="template_author">Mateusz Lutecki</string>
-
+    <string name="connection_error_message">Failed to load currencies</string>
+    <string name="retry">Retry</string>
 </resources>
