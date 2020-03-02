@@ -18,7 +18,8 @@
 
         <activity
             android:name="io.github.luteoos.currencycalc.view.activity.MainScreenActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysVisible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

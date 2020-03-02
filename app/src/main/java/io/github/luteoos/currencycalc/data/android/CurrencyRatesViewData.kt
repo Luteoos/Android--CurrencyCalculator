@@ -1,7 +1,7 @@
 package io.github.luteoos.currencycalc.data.android
 
 data class CurrencyRatesViewData(var isSuccess: Boolean = false,
-                                 var currencies: List<CurrencyRateViewDataItem> = listOf() ) {
+                                 var currencies: MutableList<CurrencyRateViewDataItem> = mutableListOf() ) {
 
     companion object{
         fun getCalculatedRates(wrapper: CurrencyRatesDataWrapper, baseCurrencyValue: Double) : CurrencyRatesViewData{

@@ -1,6 +1,7 @@
 package io.github.luteoos.currencycalc.di
 
 import io.github.luteoos.currencycalc.`interface`.CurrencyRatesRepositoryInterface
+import io.github.luteoos.currencycalc.adapter.CurrencyRatesRVAdapter
 import io.github.luteoos.currencycalc.network.GsonProvider
 import io.github.luteoos.currencycalc.network.OkHttpClientProvider
 import io.github.luteoos.currencycalc.network.RestService
@@ -20,6 +21,7 @@ val singleModule = module {
 
 val factoryModule = module {
     factory<CurrencyRatesRepositoryInterface> { CurrencyRatesRepository(get())  }
+    factory { CurrencyRatesRVAdapter(get()) }
 }
 
 /**

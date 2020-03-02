@@ -15,7 +15,7 @@ class CurrencyRatesRepository(private val currencyService: RestService) : Curren
     override fun getCurrencyRates(currency: String) : Flowable<CurrencyRatesDataWrapper> {
        return currencyService.getCurrencyRatesService().getLatestCurrencyRates(currency)
            .repeatWhen { getIntervalFlowable() }
-           .doOnNext { Timber.e("TEST// REST") }
+           .doOnNext { Timber.e("TEST// REST ${it.code()}") }
            .map {response ->
                when(response.code()){
                    200 -> CurrencyRatesDataWrapper(CurrencyRatesDataObject(response.body()!!), true)
