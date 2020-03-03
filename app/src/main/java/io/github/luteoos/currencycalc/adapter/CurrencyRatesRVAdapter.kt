@@ -79,9 +79,11 @@ class CurrencyRatesRVAdapter : RecyclerView.Adapter<CurrencyRatesRVAdapter.Curre
         }
 
         fun bindTo(item: CurrencyRateViewDataItem){
-            flagIcon.loadFlag(item.currency.currencyCode)
-            currencyName.text = item.currency.currencyCode
-            currencyFullName.text = item.currency.displayName
+            item.getCurrency().let {currency ->
+                flagIcon.loadFlag(currency.currencyCode)
+                currencyName.text = currency.currencyCode
+                currencyFullName.text = currency.displayName
+            }
             currencyValue.apply {
                 setText(item.value.toString(), TextView.BufferType.NORMAL)
                 if(item.isBase){

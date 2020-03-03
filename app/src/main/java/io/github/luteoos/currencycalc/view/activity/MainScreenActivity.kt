@@ -52,7 +52,7 @@ class MainScreenActivity : ActivityVM<MainScreenViewModel>(){
             adapter = this@MainScreenActivity.adapter
         }
             adapter.onClickItem.subscribe {
-                viewModel.updateMainCurrency(it.currency, it.value)
+                viewModel.updateMainCurrency(it.getCurrency(), it.value)
                 currencyRecyclerView.scrollToPosition(0)
             }
             adapter.onEditTextModified.subscribe {
