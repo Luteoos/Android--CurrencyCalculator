@@ -1,5 +1,6 @@
 package io.github.luteoos.currencycalc.viewmodel
 
+import android.icu.util.Currency
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.github.luteoos.currencycalc.`interface`.CurrencyRatesRepositoryInterface
@@ -40,8 +41,9 @@ class MainScreenViewModel(private val currencyRepository: CurrencyRatesRepositor
         currentCurrencyAmount = amount
     }
 
-    fun updateMainCurrency(currency: String){
-        currentCurrency = currency
+    fun updateMainCurrency(currency: Currency, amount: Double? = null){
+        currentCurrency = currency.currencyCode
+        amount?.let { currentCurrencyAmount = it }
         updateRepositoryFlow()
     }
 

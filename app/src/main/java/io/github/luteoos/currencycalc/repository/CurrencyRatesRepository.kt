@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit
 
 class CurrencyRatesRepository(private val currencyService: RestService) : CurrencyRatesRepositoryInterface{
 
-
     override fun getCurrencyRates(currency: String) : Flowable<CurrencyRatesDataWrapper> {
        return currencyService.getCurrencyRatesService().getLatestCurrencyRates(currency)
            .repeatWhen { getIntervalFlowable() }

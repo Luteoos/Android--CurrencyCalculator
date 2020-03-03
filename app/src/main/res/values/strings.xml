@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="template_author">Mateusz Lutecki</string>
     <string name="connection_error_message">Failed to load currencies</string>

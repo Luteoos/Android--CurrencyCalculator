@@ -1,100 +1,100 @@
 package io.github.luteoos.currencycalc.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.github.luteoos.currencycalc.R
 import io.github.luteoos.currencycalc.data.android.CurrencyRateViewDataItem
-import io.reactivex.Observable
+import io.github.luteoos.currencycalc.utils.Parameters
+import io.github.luteoos.currencycalc.utils.loadFlag
 import io.reactivex.rxjava3.subjects.PublishSubject
-import kotlinx.android.synthetic.main.rv_currency.view.*
 
-class CurrencyRatesRVAdapter(private val context: Context) : RecyclerView.Adapter<CurrencyRatesRVAdapter.CurrencyRatesVH>() {
+/**
+ * Passiflora on fire
+ */
+class CurrencyRatesRVAdapter : RecyclerView.Adapter<CurrencyRatesRVAdapter.CurrencyRatesVH>() {
+
     private val data = mutableListOf<CurrencyRateViewDataItem>()
-    val onClickItem = PublishSubject.create<String>()!!
-    var onEditTextModifiedd : Observable<CharSequence> = Observable.empty()
-    var onEditTextModified = PublishSubject.create<Double>()!!
+    val onClickItem = PublishSubject.create<CurrencyRateViewDataItem>()!!
+    val onEditTextModified = PublishSubject.create<Double>()!!
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyRatesVH {
-        return CurrencyRatesVH(LayoutInflater.from(context).inflate(R.layout.rv_currency, parent, false))
-    }
-
-    fun updateDataList(list: MutableList<CurrencyRateViewDataItem>){
-//        DiffUtil.calculateDiff(CurrencyRatesDiffCallback(data, list)).let {
-        if(data.firstOrNull()?.currency != list.firstOrNull()?.currency){
-            data.clear()
-            data.addAll(list)
-            notifyDataSetChanged()
-        }else
-        {
-            data.clear()
-            data.addAll(list)
-            notifyItemRangeChanged(1, data.size )
-        }
-//            it.dispatchUpdatesTo(this)
-//        }
-//        data.re
-//        data.addAll(list)
-//        notifyItemRangeChanged(1, itemCount)
+        return CurrencyRatesVH(LayoutInflater.from(parent.context).inflate(R.layout.rv_currency, parent, false))
     }
 
     override fun getItemCount() = data.size
 
-//    override fun onBindViewHolder(
-//        holder: CurrencyRatesVH,
-//        position: Int,
-//        payloads: MutableList<Any>
-//    ) {
-//        if(payloads.isEmpty())
-//            onBindViewHolder(holder,position)
-//        else{
-//            payloads.forEach { //payload[1]
-//                if(it is CurrencyRateViewDataItem)
-//                   holder.update(it)
-//            }
-//        }
-//    }
-
     override fun onBindViewHolder(holder: CurrencyRatesVH, position: Int) {
-//        holder.let {
-//            it.currencyName.text = data[position].currency
-//            it.currencyValue.setText(data[position].value.toString(), TextView.BufferType.EDITABLE)
-//        }
-//        holder.currencyValue.isFocusable = position == 0
+        holder.setIsRecyclable(false)
+        holder.bindTo(getItem(position))
         holder.itemView.setOnClickListener {
-            onClickItem.onNext(data[position].currency)
             notifyItemMoved(position, 0)
+            onClickItem.onNext(getItem(position))
         }
-        holder.update(data[position])
-//        if(position == 0){
-//            onEditTextModifiedd =
-        if(data[position].isBase)
-                holder.currencyValue.textChanges().subscribe{
-                onEditTextModified.onNext(it.toString().toDoubleOrNull() ?: 0.0)
-            }
-//        }
     }
 
-    inner class CurrencyRatesVH(view: View) : RecyclerView.ViewHolder(view){
-        val currencyName = view.tvCurrencyName
-        val currencyValue = view.etCurrencyValue
+    override fun onBindViewHolder(holder: CurrencyRatesVH, position: Int, payloads: MutableList<Any>) {
+        if(payloads.isEmpty())
+            onBindViewHolder(holder,position)
+        else{
+            payloads.first().let {payload ->
+                if(payload is Int)
+                    when(payload){
+                        Parameters.payloadCurrencyValueUpdate -> holder.updateHolderCurrencyValue(getItem(position))
+                        else -> super.onBindViewHolder(holder, position, payloads)
+                    }
+            }
+        }
+    }
 
-        fun update(item: CurrencyRateViewDataItem){
-            if(item.isBase){
-                currencyValue.isClickable = true
-                currencyValue.isFocusable = true
-//                currencyValue.requestFocus()
+    fun updateDataList(list: MutableList<CurrencyRateViewDataItem>){
+        if(data.firstOrNull()?.currency != list.firstOrNull()?.currency) {
+            data.clear()
+            data.addAll(list)
+            notifyDataSetChanged()
+        } else {
+            data.clear()
+            data.addAll(list)
+            notifyItemRangeChanged(0, itemCount, Parameters.payloadCurrencyValueUpdate)
+        }
+    }
+
+    private fun getItem(position: Int) = data[position]
+
+    inner class CurrencyRatesVH(view: View) : RecyclerView.ViewHolder(view){
+        private val currencyName = view.findViewById<TextView>(R.id.tvCurrencyName)
+        private val currencyValue = view.findViewById<EditText>(R.id.etCurrencyValue)
+        private val flagIcon = view.findViewById<ImageView>(R.id.ivFlagIcon)
+        private val currencyFullName = view.findViewById<TextView>(R.id.tvCurrencyFullName)
+
+        fun updateHolderCurrencyValue(item: CurrencyRateViewDataItem){
+            if(!item.isBase){
+                currencyValue.setText(item.value.toString())
             }
-            else{
-                currencyValue.isClickable = false
-                currencyValue.isFocusable = false
+        }
+
+        fun bindTo(item: CurrencyRateViewDataItem){
+            flagIcon.loadFlag(item.currency.currencyCode)
+            currencyName.text = item.currency.currencyCode
+            currencyFullName.text = item.currency.displayName
+            currencyValue.apply {
+                setText(item.value.toString(), TextView.BufferType.NORMAL)
+                if(item.isBase){
+                    isEnabled = true
+                    requestFocus()
+                    setSelection(currencyValue.text.count())
+                    textChanges().skipInitialValue().doOnNext {
+                        onEditTextModified.onNext(it.toString().toDoubleOrNull() ?: 0.0)
+                    }.subscribe()
+                }else{
+                    currencyValue.isEnabled = false
+                }
             }
-            currencyValue.setText(item.value.toString())
-            if(currencyName.text != item.currency)
-                currencyName.text = item.currency
         }
     }
 }

@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="colorPrimary">#AAFFFFFF</color>
-    <color name="colorPrimaryLight">#616161</color>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#191C1F</color>
+    <color name="colorPrimaryLight">#8B959E</color>
     <color name="colorPrimaryDark">#424242</color>
-    <color name="colorAccent">#f0215c</color>
-    <color name="colorAccentDark">#f899b4</color>
-    <color name="colorFont">#fcd7e2</color>
-    <color name="colorCardViewBackground">#7e082a</color>
-    <color name="colorBackgroundHeader">@color/colorPrimaryDark</color>
-    <!--    <color name="colorPrimary">#1b1b1b</color>-->
-    <!--    <color name="colorPrimaryLight">#616161</color>-->
-    <!--    <color name="colorPrimaryDark">#424242</color>-->
-    <!--    <color name="colorAccent">#18ffff</color>-->
-    <!--    <color name="colorAccentDark">#18ffe1</color>-->
-    <!--    <color name="colorFont">@color/ivory</color>-->
-    <color name="colorBackgroundLight">#AA22020b</color>
-    <color name="colorBackgroundDark">#AA121212</color>
-    <color name="colorBackground">#121212</color>
-    <color name="borderAvatarColor">#a30b36</color>
+    <color name="colorAccent">#8B959E</color>
+    <color name="colorFont">#191C1F</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="design_snackbar_background_color" tools:override="true">@color/colorAccent</color>
+
     <color name="ivory">#FFFFF0</color>
     <color name="light_yellow">#FFFFE0</color>
     <color name="yellow">#FFFF00</color>

@@ -10,9 +10,6 @@ import io.github.luteoos.currencycalc.viewmodel.MainScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-/**
- * Add your DI here
- */
 val singleModule = module {
     single { GsonProvider() }
     single { OkHttpClientProvider() }
@@ -21,12 +18,9 @@ val singleModule = module {
 
 val factoryModule = module {
     factory<CurrencyRatesRepositoryInterface> { CurrencyRatesRepository(get())  }
-    factory { CurrencyRatesRVAdapter(get()) }
+    factory { CurrencyRatesRVAdapter() }
 }
 
-/**
- * Add your viewModel DI here ex. viewModel { TemplateViewModel() }
- */
 val vmModule = module {
     viewModel { MainScreenViewModel(get()) }
 }

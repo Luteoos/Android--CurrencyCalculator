@@ -7,7 +7,7 @@ class CurrencyRatesDiffCallback(private val oldList: MutableList<CurrencyRateVie
                                 private val newList: MutableList<CurrencyRateViewDataItem>) : DiffUtil.Callback() {
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].currency == newList[newItemPosition].currency
+        return oldItemPosition == newItemPosition
     }
 
     override fun getOldListSize() = oldList.size

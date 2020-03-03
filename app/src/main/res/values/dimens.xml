@@ -2,4 +2,12 @@
 <resources>
     <dimen name="menuBarHeight">55dp</dimen>
     <dimen name="mainHeaderHeight">55dp</dimen>
+    <dimen name="padding_standard">4dp</dimen>
+    <dimen name="margin_standard">16dp</dimen>
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_big_header">72dp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_standard">16dp</dimen>
+    <dimen name="text_size_medium_big">18sp</dimen>
+    <dimen name="text_size_big">20sp</dimen>
 </resources>
